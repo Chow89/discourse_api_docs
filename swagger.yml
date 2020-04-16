@@ -9706,10 +9706,10 @@ paths:
         '200':
           description: |
             empty response body
-  /admin/site_settings/top_topics_formula_first_post_likes_multiplier:
+  /admin/site_settings/top_topics_formula_least_likes_per_post_multiplier:
     put:
       description: |
-        top topics formula first post likes multiplier
+        top topics formula least likes per post multiplier
       tags:
         - Site Settings Developer
       parameters:
@@ -9718,9 +9718,9 @@ paths:
           schema:
             type: object
             required:
-              - top_topics_formula_first_post_likes_multiplier
+              - top_topics_formula_least_likes_per_post_multiplier
             properties:
-              top_topics_formula_first_post_likes_multiplier:
+              top_topics_formula_least_likes_per_post_multiplier:
                 type: decimal
                 example: 3
                 description: |
