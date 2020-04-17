@@ -1,4 +1,4 @@
-swagger: '2.0'
+openapi: '3.0.3'
 info:
   title: 'Discourse API Documentation'
   x-logo:
@@ -55,12 +55,8 @@ info:
     -F "text_color=f0fcfd"
     ```
   version: latest
-host: discourse.example.com
-schemes:
-  - https
-basePath: /
-produces:
-  - application/json
+servers:
+  - url: https://discourse.example.com
 paths:
   /categories.json:
     get:
@@ -75,23 +71,27 @@ paths:
         200:
           description: |
             A category_list object that contains an array of categories
-          schema:
-            $ref: 'definitions/categories/categories.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/categories/categories.yml'
     post:
       description: Create a new category
-      parameters:
-        - name: name
-          in: body
-          required: true
-          schema:
-            $ref: 'definitions/categories/new_category.yml'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions/categories/new_category.yml'
       tags:
         - Categories
       responses:
         200:
           description: category response
-          schema:
-            $ref: 'definitions/categories/new_category_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/categories/new_category_response.yml'
   /c/{id}.json:
     get:
       description: |
@@ -102,100 +102,100 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
         - name: page
           in: query
-          require: false
-          type: integer
+          required: false
       responses:
         200:
           description: Category response
-          schema:
-            $ref: 'definitions/categories/category_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/categories/category_response.yml'
   /categories/{id}:
     put:
       description: |
         Update a single category
       tags:
         - Categories
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: 'definitions/categories/update_category.yml'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions/categories/update_category.yml'
       responses:
         200:
           description: Update category response
-          schema:
-            $ref: 'definitions/categories/update_category_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/categories/update_category_response.yml'
   /posts.json:
     get:
       description: |
         Get a list of the latest posts across topics
       tags:
         - Posts
-      parameters:
-        - name: before
-          in: path
-          required: false
-          type: integer
       responses:
         200:
           description: Latest posts response
-          schema:
-            $ref: 'definitions/posts/get_posts_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/posts/get_posts_response.yml'
     post:
       description: |
         Create a new topic, a new post, or a private message
       tags:
-        - Topics
         - Posts
-      parameters:
-        - name: body
-          in: body
-          required: false
-          schema:
-            type: object
-            required:
-              - raw
-            properties:
-              title:
-                type: string
-                description: |
-                  required if creating a new topic or new private message
-              topic_id:
-                type: integer
-                description: required if creating a new post
-              raw:
-                type: string
-              category:
-                type: integer
-                description: |
-                  optional if creating a new topic,
-                  ignored if creating a new post
-              target_usernames:
-                type: string
-                description: |
-                  required for private message, comma separated
-                example: discourse1,discourse2
-              archetype:
-                type: string
-                description: |
-                  required for private message
-                example: private_message
-                enum:
-                  - private_message
-              created_at:
-                type: string
-                description: |
-                  pick a date other than the default current time
-                example: "2017-01-31"
+        - Topics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - raw
+              properties:
+                title:
+                  type: string
+                  description: |
+                    required if creating a new topic or new private message
+                topic_id:
+                  type: integer
+                  description: required if creating a new post
+                raw:
+                  type: string
+                category:
+                  type: integer
+                  description: |
+                    optional if creating a new topic,
+                    ignored if creating a new post
+                target_usernames:
+                  type: string
+                  description: |
+                    required for private message, comma separated
+                  example: discourse1,discourse2
+                archetype:
+                  type: string
+                  description: |
+                    required for private message
+                  example: private_message
+                  enum:
+                    - private_message
+                created_at:
+                  type: string
+                  description: |
+                    pick a date other than the default current time
+                  example: "2017-01-31"
       responses:
         200:
           description: new topic response
-          schema:
-            $ref: 'definitions/topics/new_topic_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/topics/new_topic_response.yml'
   /posts/{id}.json:
     get:
       description: |
@@ -206,12 +206,13 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         200:
           description: post response
-          schema:
-            $ref: 'definitions/posts/get_post_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/posts/get_post_response.yml'
     put:
       description: |
         Update a single post
@@ -221,25 +222,27 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              post[raw]:
-                type: string
-              post[raw_old]:
-                type: string
-              post[edit_reason]:
-                type: string
-              post[cooked]:
-                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post[raw]:
+                  type: string
+                post[raw_old]:
+                  type: string
+                post[edit_reason]:
+                  type: string
+                post[cooked]:
+                  type: string
       responses:
         200:
           description: update post response
-          schema:
-            $ref: 'definitions/posts/update_post_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/posts/update_post_response.yml'
   /posts/{id}/locked:
     put:
       description: |
@@ -250,40 +253,46 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - locked
-            properties:
-              locked:
-                type: boolean
-                example: true
-                description: |
-                  True or False
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - locked
+              properties:
+                locked:
+                  type: boolean
+                  example: true
+                  description: |
+                    True or False
+      responses:
+        200:
+          description: success response
   /post_actions:
     post:
       description: |
         Like a post and other actions
       tags:
         - Posts
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - id
-              - post_action_type_id
-            properties:
-              id:
-                type: integer
-              post_action_type_id:
-                type: integer
-              flag_topic:
-                type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - post_action_type_id
+              properties:
+                id:
+                  type: integer
+                post_action_type_id:
+                  type: integer
+                flag_topic:
+                  type: boolean
+      responses:
+        200:
+          description: success response
   /post_actions/{id}:
     delete:
       description: |
@@ -294,16 +303,19 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - post_action_type_id
-            properties:
-              post_action_type_id:
-                type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - post_action_type_id
+              properties:
+                post_action_type_id:
+                  type: integer
+      responses:
+        200:
+          description: success response
   /t/{id}/posts.json:
     get:
       description: |
@@ -312,24 +324,25 @@ paths:
         - Topics
       parameters:
         - name: post_ids[]
-          in: path
+          in: query
           required: false
-          type: integer
           example: '?posts_ids[]=12&post_ids[]=13&post_ids[]=14'
           description: 'post_ids can be found in the post_stream'
       responses:
         200:
           description: posts in a topic response
-          schema:
-            type: object
-            properties:
-              post_stream:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  posts:
-                    type: array
-              id:
-                type: id
+                  post_stream:
+                    type: object
+                    properties:
+                      posts:
+                        type: array
+                  id:
+                    type: integer
   /t/{id}.json:
     get:
       description: |
@@ -340,18 +353,18 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
         - name: print
           in: query
           required: false
-          type: boolean
           example: true
           description: 'Will return up to 1000 posts in a topic'
       responses:
         '200':
           description: topic response
-          schema:
-            $ref: 'definitions/topics/topic_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/topics/topic_response.yml'
     delete:
       description: |
         Remove a single topic
@@ -361,7 +374,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: |
@@ -376,23 +388,23 @@ paths:
         - name: slug
           in: path
           required: true
-          type: string
           description: "ProTip: You can just use a `-` instead of the actual slug and the topic will be found by the id."
           example: "-"
         - name: id
           in: path
           required: true
-          type: integer
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: 'definitions/topics/update_topic.yml'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions/topics/update_topic.yml'
       responses:
         '200':
           description: update topic response
-          schema:
-            $ref: 'definitions/topics/update_topic_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/topics/update_topic_response.yml'
   /t/{id}/invite:
     post:
       description: |
@@ -404,22 +416,23 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            required:
-              - username
-            properties:
-              username:
-                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
       responses:
         '200':
           description: invite response
-          schema:
-            $ref: 'definitions/topics/invite.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/topics/invite.yml'
   /t/{id}/bookmark:
     put:
       description: |
@@ -430,7 +443,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: empty response body
@@ -444,48 +456,49 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            required:
-              - status
-              - enabled
-            properties:
-              status:
-                type: string
-                example: pinned
-                description: |
-                  A lowercase string. Valid values shown above.
-                enum:
-                  - closed
-                  - pinned
-                  - pinned_globally
-                  - archived
-                  - visible
-              enabled:
-                type: boolean
-                example: true
-                description: |
-                 This would be true or false
-              until:
-                type: string
-                example: '2018-12-31'
-                description: |
-                  Only required for pinned and pinned_globally.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+                - enabled
+              properties:
+                status:
+                  type: string
+                  example: pinned
+                  description: |
+                    A lowercase string. Valid values shown above.
+                  enum:
+                    - closed
+                    - pinned
+                    - pinned_globally
+                    - archived
+                    - visible
+                enabled:
+                  type: boolean
+                  example: true
+                  description: |
+                   This would be true or false
+                until:
+                  type: string
+                  example: '2018-12-31'
+                  description: |
+                    Only required for pinned and pinned_globally.
       responses:
         200:
           description: Update a Topics Status
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
-              topic_status_update:
+          content:
+            application/json:
+              schema:
                 type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
+                  topic_status_update:
+                    type: object
   /topics/private-messages/{username}.json:
     get:
       description: |
@@ -495,8 +508,10 @@ paths:
       responses:
         '200':
           description: list of private messages response
-          schema:
-            $ref: 'definitions/topics/private-messages.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/topics/private-messages.yml'
   /topics/private-messages-sent/{username}.json:
     get:
       description: |
@@ -506,8 +521,10 @@ paths:
       responses:
         '200':
           description: private messages sent response
-          schema:
-            $ref: 'definitions/topics/private-messages-sent.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/topics/private-messages-sent.yml'
   /notifications.json:
     get:
       description: |
@@ -518,91 +535,98 @@ paths:
         - name: username
           in: query
           required: false
-          type: string
       responses:
         '200':
           description: notifications response
-          schema:
-            $ref: 'definitions/notifications/get.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/notifications/get.yml'
   /notifications/mark-read.json:
     put:
       description: |
         Mark notifications as read
       tags:
         - Notifications
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: |
-                  (optional) Leave off to mark all notifications as read
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: |
+                    (optional) Leave off to mark all notifications as read
       responses:
         '200':
           description: successful mark-read response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /invites:
     post:
       description: |
         Invite a user by email to join your forum
       tags:
         - Invites
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - email
-            properties:
-              email:
-                type: string
-              group_names:
-                type: string
-              custom_message:
-                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                group_names:
+                  type: string
+                custom_message:
+                  type: string
       responses:
         '200':
           description: response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
   /invites/link:
     post:
       description: |
         Generate an invite link but don't send an email
       tags:
         - Invites
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - email
-            properties:
-              email:
-                type: string
-              group_names:
-                type: string
-              custom_message:
-                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                group_names:
+                  type: string
+                custom_message:
+                  type: string
       responses:
         '200':
           description: response
-          schema:
-            type: string
-            example: "http://forum.com/invites/token_value"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "http://discourse.example.com/invites/token_value"
   /tag_groups.json:
     get:
       description: |
@@ -613,77 +637,81 @@ paths:
         '200':
           description: |
             List of tag groups response
-          schema:
-            type: object
-            properties:
-              tag_groups:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    tag_names:
-                      type: array
-                      items:
-                        type: string
-                    parent_tag_name:
-                      type: string
-                    one_per_topic:
-                      type: boolean
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tag_groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        tag_names:
+                          type: array
+                          items:
+                            type: string
+                        parent_tag_name:
+                          type: string
+                        one_per_topic:
+                          type: boolean
     post:
       description: |
         Create a new tag group
       tags:
         - Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - name
-            properties:
-              name:
-                type: string
-              tag_names:
-                type: array
-                items:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
                   type: string
+                tag_names:
+                  type: array
+                  items:
+                    type: string
       responses:
         '200':
           description: |
             Create tab group response
-          schema:
-            type: object
-            properties:
-              tag_group:
+          content:
+            application/json:
+              schema:
                 type: object
-                required:
-                  - id
-                  - name
-                  - tag_names
-                  - parent_tag_name
-                  - one_per_topic
                 properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  tag_names:
-                    type: array
-                    items:
-                      type: string
-                  parent_tag_name:
-                    type: array
-                    items:
-                      properties:
-                        tag_name:
+                  tag_group:
+                    type: object
+                    required:
+                      - id
+                      - name
+                      - tag_names
+                      - parent_tag_name
+                      - one_per_topic
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      tag_names:
+                        type: array
+                        items:
                           type: string
-                  one_per_topic:
-                    type: boolean
+                      parent_tag_name:
+                        type: array
+                        items:
+                          properties:
+                            tag_name:
+                              type: string
+                      one_per_topic:
+                        type: boolean
   /tag_groups/{id}.json:
     get:
       description: |
@@ -694,33 +722,34 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: |
             Tag group response
-          schema:
-            type: object
-            properties:
-              tag_group:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  tag_names:
-                    type: array
-                    items:
-                      type: string
-                  parent_tag_name:
-                    type: array
-                    items:
-                      properties:
-                        tag_name:
+                  tag_group:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      tag_names:
+                        type: array
+                        items:
                           type: string
-                  one_per_topic:
-                    type: boolean
+                      parent_tag_name:
+                        type: array
+                        items:
+                          properties:
+                            tag_name:
+                              type: string
+                      one_per_topic:
+                        type: boolean
     put:
       description: |
         Update an existing tag group
@@ -730,49 +759,51 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - name
-            properties:
-              name:
-                type: string
-              tag_names:
-                type: array
-                items:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
                   type: string
+                tag_names:
+                  type: array
+                  items:
+                    type: string
       responses:
         '200':
           description: |
             Create tab group response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
-              tag_group:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                  name:
+                  success:
                     type: string
-                  tag_names:
-                    type: array
-                    items:
-                      type: string
-                  parent_tag_name:
-                    type: array
-                    items:
-                      properties:
-                        tag_name:
+                    example: OK
+                  tag_group:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      tag_names:
+                        type: array
+                        items:
                           type: string
-                  one_per_topic:
-                    type: boolean
+                      parent_tag_name:
+                        type: array
+                        items:
+                          properties:
+                            tag_name:
+                              type: string
+                      one_per_topic:
+                        type: boolean
   /users/{username}.json:
     get:
       description: |
@@ -783,12 +814,13 @@ paths:
         - name: username
           in: path
           required: true
-          type: string
       responses:
         '200':
           description: get user response
-          schema:
-            $ref: 'definitions/users/get_user_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/users/get_user_response.yml'
   /u/by-external/{external_id}.json:
     get:
       description: |
@@ -799,144 +831,153 @@ paths:
         - name: external_id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: get user response
-          schema:
-            $ref: 'definitions/users/get_user_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/users/get_user_response.yml'
   /uploads.json:
     post:
       description: |
         Upload a file like an image or an avatar
       tags:
         - Upload
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - type
-            properties:
-              type:
-                type: string
-                example: composer
-                description: |
-                  a lowercase string with numbers but no spaces. Set to 'avatar' if uploading an avatar
-                enum:
-                  - avatar
-                  - profile_background
-                  - card_background
-                  - custom_emoji
-                  - composer
-              user_id:
-                type: integer
-                example: 1
-                description: required if uploading an avatar
-              synchronous:
-                type: boolean
-                example: true
-                description: use this flag to return an id and url
-        - name: files[]
-          in: formData
-          required: true
-          type: file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  example: composer
+                  description: |
+                    a lowercase string with numbers but no spaces. Set to 'avatar' if uploading an avatar
+                  enum:
+                    - avatar
+                    - profile_background
+                    - card_background
+                    - custom_emoji
+                    - composer
+                user_id:
+                  type: integer
+                  example: 1
+                  description: required if uploading an avatar
+                synchronous:
+                  type: boolean
+                  example: true
+                  description: use this flag to return an id and url
+                file:
+                  type: string
+                  format: binary
       responses:
         200:
           description: |
-            if async will return '{ success: true}'
-          schema:
-            type: object
-            properties:
-              id:
-                type: integer
-              user_id:
-                type: integer
-              original_filename:
-                type: string
-              filesize:
-                type: integer
-              width:
-                type: integer
-              height:
-                type: integer
-              url:
-                type: string
-              created_at:
-                type: string
-              updated_at:
-                type: string
-              sha1:
-                type: string
-              origin:
-                type: null
-              retain_hours:
-                type: null
+            if async will return '{success: true}'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  original_filename:
+                    type: string
+                  filesize:
+                    type: integer
+                  width:
+                    type: integer
+                  height:
+                    type: integer
+                  url:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  sha1:
+                    type: string
+                  origin:
+                    type: null
+                  retain_hours:
+                    type: null
   /users/{username}/preferences/avatar/pick:
     put:
       description: |
         Update avatar
       tags:
         - Users
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - upload_id
-              - type
-            properties:
-              upload_id:
-                type: integer
-                example: 4
-              type:
-                type: string
-                example: uploaded
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - upload_id
+                - type
+              properties:
+                upload_id:
+                  type: integer
+                  example: 4
+                type:
+                  type: string
+                  example: uploaded
       responses:
         200:
           description: |
             update avatar response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /users/{username}/preferences/email:
     put:
       description: |
         Update email
       tags:
         - Users
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - email
-            properties:
-              email:
-                type: string
-                example: discourse1@example.com
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  example: discourse1@example.com
+      responses:
+        200:
+          description: update email response
   /users:
     post:
       description: |
         Creates a new user
       tags:
         - Users
-      parameters:
-        - name: body
-          in: body
-          schema:
-            $ref: 'definitions/users/new_user.yml'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions/users/new_user.yml'
       responses:
         '200':
           description: new user response
-          schema:
-            $ref: 'definitions/users/new_user_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/users/new_user_response.yml'
   /directory_items.json?period={period}&order={order}:
     get:
       description: |
@@ -947,7 +988,6 @@ paths:
         - name: period
           in: query
           required: true
-          type: string
           enum:
             - daily
             - weekly
@@ -958,7 +998,6 @@ paths:
         - name: order
           in: query
           required: true
-          type: string
           enum:
             - likes_received
             - likes_given
@@ -970,19 +1009,19 @@ paths:
         - name: asc
           in: query
           required: false
-          type: boolean
           enum:
             - true
         - name: page
           in: query
           required: false
-          type: integer
       responses:
         '200':
           description: |
             public list of users response
-          schema:
-            $ref: 'definitions/users/directory_items_response.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/users/directory_items_response.yml'
   /tags:
     get:
       description: |
@@ -1093,7 +1132,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
         - name: body
           in: body
           schema:
@@ -1120,7 +1158,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: empty response body
@@ -1134,7 +1171,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
         - name: body
           in: body
           schema:
@@ -1190,7 +1226,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: Unsilence a user response
@@ -1218,7 +1253,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: activate user response
@@ -1237,7 +1271,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
       responses:
         '200':
           description: succesfully anonymized user
@@ -1284,7 +1317,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
         - name: body
           in: body
           schema:
@@ -1304,11 +1336,9 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
         - name: group_id
           in: path
           required: true
-          type: integer
       responses:
         200:
           description: |
@@ -1324,7 +1354,6 @@ paths:
         - name: id
           in: path
           require: true
-          type: integer
       responses:
         200:
           description: |
@@ -1340,7 +1369,6 @@ paths:
         - name: id
           in: path
           required: true
-          type: integer
         - name: body
           in: body
           schema:
@@ -1423,7 +1451,6 @@ paths:
         - name: page
           in: query
           required: false
-          type: integer
         - name: show_emails
           in: query
           required: false
@@ -12552,7 +12579,6 @@ paths:
           in: path
           required: true
           example: sent
-          type: string
           enum:
             - sent
             - skipped
@@ -12563,7 +12589,6 @@ paths:
           in: path
           required: true
           example: 0
-          type: integer
       responses:
         '200':
           description: |
@@ -12604,7 +12629,6 @@ paths:
           in: path
           required: true
           example: active
-          type: string
           enum:
             - active
             - old
@@ -12612,7 +12636,6 @@ paths:
           in: path
           required: true
           example: 0
-          type: integer
       responses:
         '200':
           description: |
@@ -12785,7 +12808,6 @@ paths:
       parameters:
         - name: id
           in: path
-          type: integer
           required: true
       responses:
         200:
@@ -12905,7 +12927,6 @@ paths:
       parameters:
         - name: id
           in: path
-          type: integer
           required: true
       responses:
         200:
@@ -12926,15 +12947,12 @@ paths:
       parameters:
         - name: offset
           in: query
-          type: integer
           required: true
         - name: username
           in: query
-          type: string
           required: true
         - name: filter
           in: query
-          type: integer
           required: true
       responses:
         200:
@@ -13093,11 +13111,9 @@ paths:
         - name: action_name
           in: query
           required: false
-          type: string
         - name: action_id
           in: query
           required: false
-          type: integer
       responses:
         200:
           description: |
@@ -13293,19 +13309,15 @@ paths:
       parameters:
         - name: start_date
           in: query
-          type: string
           required: false
         - name: end_date
           in: query
-          type: string
           required: false
         - name: category_id
           in: query
-          type: integer
           required: false
         - name: group_id
           in: query
-          type: integer
           required: false
       responses:
         200:
