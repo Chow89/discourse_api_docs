@@ -11737,19 +11737,19 @@ paths:
         "default categories muted"
       tags:
         - Site Settings User Preferences
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - default_categories_muted
-            properties:
-              default_categories_muted:
-                type: string
-                example: ""
-                description: |
-                  "Pipe delimited category id's. List of categories that are muted by default."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - default_categories_muted
+              properties:
+                default_categories_muted:
+                  type: string
+                  example: ""
+                  description: |
+                    "Pipe delimited category id's. List of categories that are muted by default."
       responses:
         '200':
           description: |
@@ -11760,19 +11760,19 @@ paths:
         "default categories watching first post"
       tags:
         - Site Settings User Preferences
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - default_categories_watching_first_post
-            properties:
-              default_categories_watching_first_post:
-                type: string
-                example: ""
-                description: |
-                  "Pipe delimited category id's. List of categories in which first post in each new topic will be watched by default."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - default_categories_watching_first_post
+              properties:
+                default_categories_watching_first_post:
+                  type: string
+                  example: ""
+                  description: |
+                    "Pipe delimited category id's. List of categories in which first post in each new topic will be watched by default."
       responses:
         '200':
           description: |
@@ -11783,19 +11783,19 @@ paths:
         "max user api reqs per day"
       tags:
         - Site Settings User API
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - max_user_api_reqs_per_day
-            properties:
-              max_user_api_reqs_per_day:
-                type: integer
-                example: 2880
-                description: |
-                  "Maximum number of user API requests per key per day"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - max_user_api_reqs_per_day
+              properties:
+                max_user_api_reqs_per_day:
+                  type: integer
+                  example: 2880
+                  description: |
+                    "Maximum number of user API requests per key per day"
       responses:
         '200':
           description: |
@@ -11806,19 +11806,19 @@ paths:
         "max user api reqs per minute"
       tags:
         - Site Settings User API
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - max_user_api_reqs_per_minute
-            properties:
-              max_user_api_reqs_per_minute:
-                type: integer
-                example: 20
-                description: |
-                  "Maximum number of user API requests per key per minute"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - max_user_api_reqs_per_minute
+              properties:
+                max_user_api_reqs_per_minute:
+                  type: integer
+                  example: 20
+                  description: |
+                    "Maximum number of user API requests per key per minute"
       responses:
         '200':
           description: |
@@ -11829,19 +11829,19 @@ paths:
         "allow user api keys"
       tags:
         - Site Settings User API
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - allow_user_api_keys
-            properties:
-              allow_user_api_keys:
-                type: boolean
-                example: true
-                description: |
-                  "Allow generation of user API keys"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - allow_user_api_keys
+              properties:
+                allow_user_api_keys:
+                  type: boolean
+                  example: true
+                  description: |
+                    "Allow generation of user API keys"
       responses:
         '200':
           description: |
@@ -11852,19 +11852,19 @@ paths:
         "allow user api key scopes"
       tags:
         - Site Settings User API
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - allow_user_api_key_scopes
-            properties:
-              allow_user_api_key_scopes:
-                type: string
-                example: "read|write|message_bus|push|notifications|session_info"
-                description: |
-                  "List of scopes allowed for user API keys"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - allow_user_api_key_scopes
+              properties:
+                allow_user_api_key_scopes:
+                  type: string
+                  example: "read|write|message_bus|push|notifications|session_info"
+                  description: |
+                    "List of scopes allowed for user API keys"
       responses:
         '200':
           description: |
@@ -11875,19 +11875,19 @@ paths:
         "max api keys per user"
       tags:
         - Site Settings User Preferences
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - max_api_keys_per_user
-            properties:
-              max_api_keys_per_user:
-                type: integer
-                example: 10
-                description: |
-                  "Maximum number of user API keys per user"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - max_api_keys_per_user
+              properties:
+                max_api_keys_per_user:
+                  type: integer
+                  example: 10
+                  description: |
+                    "Maximum number of user API keys per user"
       responses:
         '200':
           description: |
@@ -11898,19 +11898,19 @@ paths:
         "min trust level for user api key"
       tags:
         - Site Settings User API
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - min_trust_level_for_user_api_key
-            properties:
-              min_trust_level_for_user_api_key:
-                type: integer
-                example: 1
-                description: |
-                  "Trust level required for generation of user API keys"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - min_trust_level_for_user_api_key
+              properties:
+                min_trust_level_for_user_api_key:
+                  type: integer
+                  example: 1
+                  description: |
+                    "Trust level required for generation of user API keys"
       responses:
         '200':
           description: |
@@ -11921,19 +11921,19 @@ paths:
         "allowed user api push urls"
       tags:
         - Site Settings User API
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - allowed_user_api_push_urls
-            properties:
-              allowed_user_api_push_urls:
-                type: string
-                example: ""
-                description: |
-                  "Allowed URLs for server push to user API"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - allowed_user_api_push_urls
+              properties:
+                allowed_user_api_push_urls:
+                  type: string
+                  example: ""
+                  description: |
+                    "Allowed URLs for server push to user API"
       responses:
         '200':
           description: |
@@ -11944,19 +11944,19 @@ paths:
         "allowed user api auth redirects"
       tags:
         - Site Settings User API
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - allowed_user_api_auth_redirects
-            properties:
-              allowed_user_api_auth_redirects:
-                type: string
-                example: "https://api.discourse.org/api/auth_redirect|discourse://auth_redirect"
-                description: |
-                  "Allowed URL for authentication redirect for user API keys"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - allowed_user_api_auth_redirects
+              properties:
+                allowed_user_api_auth_redirects:
+                  type: string
+                  example: "https://api.discourse.org/api/auth_redirect|discourse://auth_redirect"
+                  description: |
+                    "Allowed URL for authentication redirect for user API keys"
       responses:
         '200':
           description: |
@@ -11967,19 +11967,19 @@ paths:
         "tagging enabled"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - tagging_enabled
-            properties:
-              tagging_enabled:
-                type: boolean
-                example: false
-                description: |
-                  "Enable tags on topics?"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tagging_enabled
+              properties:
+                tagging_enabled:
+                  type: boolean
+                  example: false
+                  description: |
+                    "Enable tags on topics?"
       responses:
         '200':
           description: |
@@ -11990,23 +11990,23 @@ paths:
         "tag style"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - tag_style
-            properties:
-              tag_style:
-                type: string
-                enum:
-                  - simple
-                  - bullet
-                  - box
-                example: simple
-                description: |
-                  "Visual style for tag badges."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tag_style
+              properties:
+                tag_style:
+                  type: string
+                  enum:
+                    - simple
+                    - bullet
+                    - box
+                  example: simple
+                  description: |
+                    "Visual style for tag badges."
       responses:
         '200':
           description: |
@@ -12040,19 +12040,19 @@ paths:
         "max tag length"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - max_tag_length
-            properties:
-              max_tag_length:
-                type: integer
-                example: 20
-                description: |
-                  "The maximum amount of characters that can be used in a tag."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - max_tag_length
+              properties:
+                max_tag_length:
+                  type: integer
+                  example: 20
+                  description: |
+                    "The maximum amount of characters that can be used in a tag."
       responses:
         '200':
           description: |
@@ -12063,25 +12063,25 @@ paths:
         "min trust to create tag"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - min_trust_to_create_tag
-            properties:
-              tagging_enabled:
-                type: integer
-                enum:
-                  - 0
-                  - 1
-                  - 2
-                  - 3
-                  - 4
-                example: 3
-                description: |
-                  "The minimum trust level required to create a tag."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - min_trust_to_create_tag
+              properties:
+                tagging_enabled:
+                  type: integer
+                  enum:
+                    - 0
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                  example: 3
+                  description: |
+                    "The minimum trust level required to create a tag."
       responses:
         '200':
           description: |
@@ -12092,25 +12092,25 @@ paths:
         "min trust level to tag topics"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - min_trust_level_to_tag_topics
-            properties:
-              min_trust_level_to_tag_topics:
-                type: integer
-                enum:
-                  - 0
-                  - 1
-                  - 2
-                  - 3
-                  - 4
-                example: 0
-                description: |
-                  "Minimum trust level required to tag topics"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - min_trust_level_to_tag_topics
+              properties:
+                min_trust_level_to_tag_topics:
+                  type: integer
+                  enum:
+                    - 0
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                  example: 0
+                  description: |
+                    "Minimum trust level required to tag topics"
       responses:
         '200':
           description: |
@@ -12121,19 +12121,19 @@ paths:
         "max_tag_search_results"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - max_tag_search_results
-            properties:
-              max_tag_search_results:
-                type: integer
-                example: 5
-                description: |
-                  "When searching for tags, the maximum number of results to show."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - max_tag_search_results
+              properties:
+                max_tag_search_results:
+                  type: integer
+                  example: 5
+                  description: |
+                    "When searching for tags, the maximum number of results to show."
       responses:
         '200':
           description: |
@@ -12144,19 +12144,19 @@ paths:
         "show filter by tag"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - show_filter_by_tag
-            properties:
-              show_filter_by_tag:
-                type: boolean
-                example: false
-                description: |
-                  "Show a dropdown to filter a topic list by tag."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - show_filter_by_tag
+              properties:
+                show_filter_by_tag:
+                  type: boolean
+                  example: false
+                  description: |
+                    "Show a dropdown to filter a topic list by tag."
       responses:
         '200':
           description: |
