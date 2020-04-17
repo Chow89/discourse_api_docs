@@ -9346,7 +9346,7 @@ paths:
                 - tl2_additional_likes_per_day_multiplier
               properties:
                 tl2_additional_likes_per_day_multiplier:
-                  type: decimal
+                  type: number
                   example: 1.5
                   description: |
                     "Increase limit of likes per day for tl2 (member) by multiplying with this number"
@@ -9369,7 +9369,7 @@ paths:
                 - tl3_additional_likes_per_day_multiplier
               properties:
                 tl3_additional_likes_per_day_multiplier:
-                  type: decimal
+                  type: number
                   example: 2
                   description: |
                     "Increase limit of likes per day for tl3 (regular) by multiplying with this number"
@@ -9392,7 +9392,7 @@ paths:
                 - tl4_additional_likes_per_day_multiplier
               properties:
                 tl4_additional_likes_per_day_multiplier:
-                  type: decimal
+                  type: number
                   example: 3
                   description: |
                     "Increase limit of likes per day for tl4 (leader) by multiplying with this number"
@@ -9760,7 +9760,7 @@ paths:
                 - top_topics_formula_log_views_multiplier
               properties:
                 top_topics_formula_log_views_multiplier:
-                  type: decimal
+                  type: number
                   example: 2
                   description: |
                     "value of log views multiplier (n) in top topics formula: `log(views_count) * (n) + op_likes_count * 0.5 + LEAST(likes_count / posts_count, 3) + 10 + log(posts_count)`"
@@ -9783,7 +9783,7 @@ paths:
                 - top_topics_formula_first_post_likes_multiplier
               properties:
                 top_topics_formula_first_post_likes_multiplier:
-                  type: decimal
+                  type: number
                   example: 0.5
                   description: |
                     "value of first post likes multiplier (n) in top topics formula: `log(views_count) * 2 + op_likes_count * (n) + LEAST(likes_count / posts_count, 3) + 10 + log(posts_count)`"
@@ -9806,7 +9806,7 @@ paths:
                 - top_topics_formula_least_likes_per_post_multiplier
               properties:
                 top_topics_formula_least_likes_per_post_multiplier:
-                  type: decimal
+                  type: number
                   example: 3
                   description: |
                     "value of least likes per post multiplier (n) in top topics formula: `log(views_count) * 2 + op_likes_count * 0.5 + LEAST(likes_count / posts_count, (n)) + 10 + log(posts_count)`"
@@ -10707,7 +10707,7 @@ paths:
                 - topic_post_like_heat_low
               properties:
                 topic_post_like_heat_low:
-                  type: decimal
+                  type: number
                   example: 0.5
                   description: |
                     "After the likes:post ratio exceeds this ratio, the post count field is slightly highlighted."
@@ -10730,7 +10730,7 @@ paths:
                 - topic_post_like_heat_medium
               properties:
                 topic_post_like_heat_medium:
-                  type: decimal
+                  type: number
                   example: 1.0
                   description: |
                     "After the likes:post ratio exceeds this ratio, the post count field is moderately highlighted."
@@ -10753,7 +10753,7 @@ paths:
                 - topic_post_like_heat_high
               properties:
                 topic_post_like_heat_high:
-                  type: decimal
+                  type: number
                   example: 2.0
                   description: |
                     "After the likes:post ratio exceeds this ratio, the post count field is strongly highlighted."
@@ -12017,19 +12017,19 @@ paths:
         "max tags per topic"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - max_tags_per_topic
-            properties:
-              max_tags_per_topic:
-                type: integer
-                example: 5
-                description: |
-                  "The maximum tags that can be applied to a topic."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - max_tags_per_topic
+              properties:
+                max_tags_per_topic:
+                  type: integer
+                  example: 5
+                  description: |
+                    "The maximum tags that can be applied to a topic."
       responses:
         '200':
           description: |
@@ -12167,19 +12167,19 @@ paths:
         "max tags in filter list"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - max_tags_in_filter_list
-            properties:
-              max_tags_in_filter_list:
-                type: integer
-                example: 30
-                description: |
-                  "Maximum number of tags to show in the filter dropdown. The most used tags will be shown."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - max_tags_in_filter_list
+              properties:
+                max_tags_in_filter_list:
+                  type: integer
+                  example: 30
+                  description: |
+                    "Maximum number of tags to show in the filter dropdown. The most used tags will be shown."
       responses:
         '200':
           description: |
@@ -12190,19 +12190,19 @@ paths:
         "tags sort alphabetically"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - tags_sort_alphabetically
-            properties:
-              tags_sort_alphabetically:
-                type: boolean
-                example: false
-                description: |
-                  "Show tags in alphabetical order. Default is to show in order of popularity."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tags_sort_alphabetically
+              properties:
+                tags_sort_alphabetically:
+                  type: boolean
+                  example: false
+                  description: |
+                    "Show tags in alphabetical order. Default is to show in order of popularity."
       responses:
         '200':
           description: |
@@ -12213,19 +12213,19 @@ paths:
         "staff tags"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - staff_tags
-            properties:
-              staff_tags:
-                type: string
-                example: ""
-                description: |
-                  "A list of tags that can only be applied by staff members"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - staff_tags
+              properties:
+                staff_tags:
+                  type: string
+                  example: ""
+                  description: |
+                    "A list of tags that can only be applied by staff members"
       responses:
         '200':
           description: |
@@ -12236,19 +12236,19 @@ paths:
         "suppress overlapping tags in list"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - suppress_overlapping_tags_in_list
-            properties:
-              suppress_overlapping_tags_in_list:
-                type: boolean
-                example: false
-                description: |
-                  "If tags match exact words in topic titles, don't show the tag"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - suppress_overlapping_tags_in_list
+              properties:
+                suppress_overlapping_tags_in_list:
+                  type: boolean
+                  example: false
+                  description: |
+                    "If tags match exact words in topic titles, don't show the tag"
       responses:
         '200':
           description: |
@@ -12259,19 +12259,19 @@ paths:
         "remove muted tags from latest"
       tags:
         - Site Settings Tags
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - remove_muted_tags_from_latest
-            properties:
-              remove_muted_tags_from_latest:
-                type: boolean
-                example: false
-                description: |
-                  "Don't show topics tagged with muted tags in the latest topic list."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - remove_muted_tags_from_latest
+              properties:
+                remove_muted_tags_from_latest:
+                  type: boolean
+                  example: false
+                  description: |
+                    "Don't show topics tagged with muted tags in the latest topic list."
       responses:
         '200':
           description: |
@@ -12282,19 +12282,19 @@ paths:
         "details enabled"
       tags:
         - Site Settings Plugins
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - details_enabled
-            properties:
-              details_enabled:
-                type: boolean
-                example: true
-                description: |
-                  'Enable the details plugin. If you change this, you must rebake all posts with: "rake posts:rebake".'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - details_enabled
+              properties:
+                details_enabled:
+                  type: boolean
+                  example: true
+                  description: |
+                    'Enable the details plugin. If you change this, you must rebake all posts with: "rake posts:rebake".'
       responses:
         '200':
           description: |
@@ -12305,19 +12305,19 @@ paths:
         "daily performance report"
       tags:
         - Site Settings Plugins
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - daily_performance_report
-            properties:
-              daily_performance_report:
-                type: boolean
-                example: false
-                description: |
-                  "Analyze NGINX logs daily and post a Staff Only topic with details"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - daily_performance_report
+              properties:
+                daily_performance_report:
+                  type: boolean
+                  example: false
+                  description: |
+                    "Analyze NGINX logs daily and post a Staff Only topic with details"
       responses:
         '200':
           description: |
@@ -12328,19 +12328,19 @@ paths:
         "poll enabled"
       tags:
         - Site Settings Plugins
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - poll_enabled
-            properties:
-              poll_enabled:
-                type: boolean
-                example: true
-                description: |
-                  "Allow users to create polls?"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - poll_enabled
+              properties:
+                poll_enabled:
+                  type: boolean
+                  example: true
+                  description: |
+                    "Allow users to create polls?"
       responses:
         '200':
           description: |
@@ -12351,19 +12351,19 @@ paths:
         "poll maximum options"
       tags:
         - Site Settings Plugins
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - poll_maximum_options
-            properties:
-              poll_maximum_options:
-                type: integer
-                example: 20
-                description: |
-                  "Maximum number of options allowed in a poll."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - poll_maximum_options
+              properties:
+                poll_maximum_options:
+                  type: integer
+                  example: 20
+                  description: |
+                    "Maximum number of options allowed in a poll."
       responses:
         '200':
           description: |
@@ -12374,19 +12374,19 @@ paths:
         poll edit window mins
       tags:
         - Site Settings Plugins
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - poll_edit_window_mins
-            properties:
-              poll_edit_window_mins:
-                type: integer
-                example: 5
-                description: |
-                  Number of minutes after post creation during which polls can be edited.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - poll_edit_window_mins
+              properties:
+                poll_edit_window_mins:
+                  type: integer
+                  example: 5
+                  description: |
+                    Number of minutes after post creation during which polls can be edited.
       responses:
         '200':
           description: |
@@ -12397,19 +12397,19 @@ paths:
         enable discourse narrative bot
       tags:
         - Site Settings Narrative Bot
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - discourse_narrative_bot_enabled
-            properties:
-              discourse_narrative_bot_enabled:
-                type: boolean
-                example: true
-                description: |
-                  Enable Discourse Narrative Bot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - discourse_narrative_bot_enabled
+              properties:
+                discourse_narrative_bot_enabled:
+                  type: boolean
+                  example: true
+                  description: |
+                    Enable Discourse Narrative Bot
       responses:
         200:
           description: |
@@ -12420,19 +12420,19 @@ paths:
         disable discourse narrative bot welcome post
       tags:
         - Site Settings Narrative Bot
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - disable_discourse_narrative_bot_welcome_post
-            properties:
-              disable_discourse_narrative_bot_welcome_post:
-                type: boolean
-                example: false
-                description: |
-                  disable discourse narrative bot welcome post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - disable_discourse_narrative_bot_welcome_post
+              properties:
+                disable_discourse_narrative_bot_welcome_post:
+                  type: boolean
+                  example: false
+                  description: |
+                    disable discourse narrative bot welcome post
       responses:
         200:
           description: |
@@ -12443,19 +12443,19 @@ paths:
         discourse narrative bot disable public replies
       tags:
         - Site Settings Narrative Bot
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - discourse_narrative_bot_disable_public_replies
-            properties:
-              discourse_narrative_bot_disable_public_replies:
-                type: boolean
-                example: false
-                description: |
-                  Disable public replies by Discourse Narrative Bot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - discourse_narrative_bot_disable_public_replies
+              properties:
+                discourse_narrative_bot_disable_public_replies:
+                  type: boolean
+                  example: false
+                  description: |
+                    Disable public replies by Discourse Narrative Bot
       responses:
         200:
           description: |
@@ -12466,19 +12466,19 @@ paths:
         discourse narrative bot ignored usernames
       tags:
         - Site Settings Narrative Bot
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - discourse_narrative_bot_ignored_usernames
-            properties:
-              discourse_narrative_bot_ignored_usernames:
-                type: boolean
-                example: discourse|steve
-                description: |
-                  Usernames that the Discourse Narrative Bot should ignore. Pipe delimited.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - discourse_narrative_bot_ignored_usernames
+              properties:
+                discourse_narrative_bot_ignored_usernames:
+                  type: boolean
+                  example: discourse|steve
+                  description: |
+                    Usernames that the Discourse Narrative Bot should ignore. Pipe delimited.
       responses:
         200:
           description: |
@@ -12489,19 +12489,19 @@ paths:
         discourse narrative bot welcome post delay
       tags:
         - Site Settings Narrative Bot
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - discourse_narrative_bot_welcome_post_delay
-            properties:
-              discourse_narrative_bot_welcome_post_delay:
-                type: integer
-                example: 0
-                description: |
-                  Wait (n) seconds before sending the Discourse Narrative Bot welcome post.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - discourse_narrative_bot_welcome_post_delay
+              properties:
+                discourse_narrative_bot_welcome_post_delay:
+                  type: integer
+                  example: 0
+                  description: |
+                    Wait (n) seconds before sending the Discourse Narrative Bot welcome post.
       responses:
         200:
           description: |
@@ -12512,22 +12512,22 @@ paths:
         discourse narrative bot welcome post type
       tags:
         - Site Settings Narrative Bot
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - discourse_narrative_bot_welcome_post_type
-            properties:
-              discourse_narrative_bot_welcome_post_delay:
-                type: string
-                example: new_user_track
-                enum:
-                  - new_user_track
-                  - welcome_message
-                description: |
-                  Type of welcome post that the Discourse Narrative Bot should send out
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - discourse_narrative_bot_welcome_post_type
+              properties:
+                discourse_narrative_bot_welcome_post_delay:
+                  type: string
+                  example: new_user_track
+                  enum:
+                    - new_user_track
+                    - welcome_message
+                  description: |
+                    Type of welcome post that the Discourse Narrative Bot should send out
       responses:
         200:
           description: |
@@ -12542,26 +12542,28 @@ paths:
         '200':
           description: |
             plugin list response
-          schema:
-            type: object
-            properties:
-              plugins:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    name:
-                      type: string
-                    version:
-                      type: string
-                    url:
-                      type: string
-                    enabled:
-                      type: boolean
-                    enabled_setting:
-                      type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plugins:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        version:
+                          type: string
+                        url:
+                          type: string
+                        enabled:
+                          type: boolean
+                        enabled_setting:
+                          type: string
   /admin/backups.json:
     get:
       description: |
@@ -12573,43 +12575,47 @@ paths:
           description: |
             "List of backups response. NOTE: Backups link urls cannot be called directly."
             "Please create a PUT request to download a backup."
-          schema:
-            type: array
-            items:
-              type: object
-              properties:
-                filename:
-                  type: string
-                size:
-                  type: integer
-                link:
-                  type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    filename:
+                      type: string
+                    size:
+                      type: integer
+                    link:
+                      type: string
     post:
       description: |
         create a backup
       tags:
         - Backups
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            required:
-              - with_uploads
-            properties:
-              with_uploads:
-                type: boolean
-                example: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - with_uploads
+              properties:
+                with_uploads:
+                  type: boolean
+                  example: true
       responses:
         200:
           description: |
             create a backup response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /admin/backups/{filename}:
     put:
       description: |
@@ -12622,7 +12628,8 @@ paths:
           in: path
           required: true
           example: discourse-2018-02-22-075414-v20180127005644.tar.gz
-          type: string
+          schema:
+            type: string
       responses:
         200:
           description: |
@@ -12638,45 +12645,49 @@ paths:
           in: path
           required: true
           example: sent
-          enum:
-            - sent
-            - skipped
-            - bounced
-            - received
-            - rejected
+          schema:
+            type: string
+            enum:
+              - sent
+              - skipped
+              - bounced
+              - received
+              - rejected
         - name: offset
-          in: path
-          required: true
+          in: query
+          required: false
           example: 0
       responses:
         '200':
           description: |
             list of emails response
-          schema:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  type: integer
-                reply_key:
-                  type: string
-                to_address:
-                  type: string
-                email_type:
-                  type: string
-                user_id:
-                  type: integer
-                created_at:
-                  type: string
-                skipped:
-                  type: boolean
-                  example: false
-                bounced:
-                  type: boolean
-                  example: false
-                user:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
                   type: object
+                  properties:
+                    id:
+                      type: integer
+                    reply_key:
+                      type: string
+                    to_address:
+                      type: string
+                    email_type:
+                      type: string
+                    user_id:
+                      type: integer
+                    created_at:
+                      type: string
+                    skipped:
+                      type: boolean
+                      example: false
+                    bounced:
+                      type: boolean
+                      example: false
+                    user:
+                      type: object
   /admin/flags/{type}.json:
     get:
       description: |
@@ -12688,26 +12699,29 @@ paths:
           in: path
           required: true
           example: active
-          enum:
-            - active
-            - old
+          schema:
+            enum:
+              - active
+              - old
         - name: offset
-          in: path
-          required: true
+          in: query
+          required: false
           example: 0
       responses:
         '200':
           description: |
             list of flags response
-          schema:
-            type: object
-            properties:
-              posts:
-                type: array
-              topics:
-                type: array
-              users:
-                type: array
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                  topics:
+                    type: array
+                  users:
+                    type: array
   /user-badges/{username}.json:
     get:
       description: |
@@ -12718,58 +12732,62 @@ paths:
         200:
           description: |
             list of badges assigned to a user response
-          schema:
-            type: object
-            properties:
-              badge_types:
-                type: array
-              badges:
-                type: array
-              granted_bies:
-                type: array
-              topics:
-                type: array
-              user_badges:
-                type: array
-              users:
-                type: array
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  badge_types:
+                    type: array
+                  badges:
+                    type: array
+                  granted_bies:
+                    type: array
+                  topics:
+                    type: array
+                  user_badges:
+                    type: array
+                  users:
+                    type: array
   /user_badges.json:
     post:
       description: |
         assign a badge to a user
       tags:
         - Badges
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              username:
-                type: string
-              badge_id:
-                type: integer
-              reason:
-                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                badge_id:
+                  type: integer
+                reason:
+                  type: string
       responses:
         200:
           description: |
             assign a badge to a user response
-          schema:
-            type: object
-            properties:
-              badge_types:
-                type: array
-              badges:
-                type: array
-              granted_bies:
-                type: array
-              topics:
-                type: array
-              user_badges:
-                type: array
-              users:
-                type: array
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  badge_types:
+                    type: array
+                  badges:
+                    type: array
+                  granted_bies:
+                    type: array
+                  topics:
+                    type: array
+                  user_badges:
+                    type: array
+                  users:
+                    type: array
   /admin/badges.json:
     get:
       description: |
@@ -12780,47 +12798,49 @@ paths:
         200:
           description: |
             list of badges response
-          schema:
-            $ref: 'definitions/admin/get_badges.yml'
+          content:
+            application/json:
+              schema:
+                $ref: 'definitions/admin/get_badges.yml'
     post:
       description: |
         create a badge
       tags:
         - Badges
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              allow_title:
-                type: boolean
-              multiple_grant:
-                type: boolean
-              listable:
-                type: boolean
-              auto_revoke:
-                type: boolean
-              enabled:
-                type: boolean
-              show_posts:
-                type: boolean
-              target_posts:
-                type: boolean
-              name:
-                type: string
-              description:
-                type: string
-              long_description:
-                type: string
-              icon:
-                type: string
-              image:
-                type: string
-              badge_grouping_id:
-                type: integer
-              badge_type_id:
-                type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                allow_title:
+                  type: boolean
+                multiple_grant:
+                  type: boolean
+                listable:
+                  type: boolean
+                auto_revoke:
+                  type: boolean
+                enabled:
+                  type: boolean
+                show_posts:
+                  type: boolean
+                target_posts:
+                  type: boolean
+                name:
+                  type: string
+                description:
+                  type: string
+                long_description:
+                  type: string
+                icon:
+                  type: string
+                image:
+                  type: string
+                badge_grouping_id:
+                  type: integer
+                badge_type_id:
+                  type: integer
       responses:
         200:
           description: |
@@ -12840,20 +12860,20 @@ paths:
         create a user fields
       tags:
         - User Fields
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              user_field[name]:
-                type: string
-              user_field[description]:
-                type: string
-              user_field[field_type:
-                type: string
-              user_field[required]:
-                type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_field[name]:
+                  type: string
+                user_field[description]:
+                  type: string
+                user_field[field_type:
+                  type: string
+                user_field[required]:
+                  type: boolean
       responses:
         200:
           description: |
@@ -12872,111 +12892,119 @@ paths:
         200:
           description: |
             delete a user field response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: "OK"
   /t/{id}/timer:
     post:
       description: |
         Create a timed topic
       tags:
         - Topics
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              time:
-                type: string
-              status_type:
-                type: string
-                example: publish_to_category
-              based_on_last_post:
-                type: boolean
-                example: false
-              category_id:
-                type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                time:
+                  type: string
+                status_type:
+                  type: string
+                  example: publish_to_category
+                based_on_last_post:
+                  type: boolean
+                  example: false
+                category_id:
+                  type: integer
       responses:
         200:
           description: |
             create a timed topic response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: "OK"
-              execute_at:
-                type: string
-              duration:
-                type: string
-              based_on_last_post:
-                type: boolean
-                example: false
-              closed:
-                type: boolean
-                example: false
-              category_id:
-                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: "OK"
+                  execute_at:
+                    type: string
+                  duration:
+                    type: string
+                  based_on_last_post:
+                    type: boolean
+                    example: false
+                  closed:
+                    type: boolean
+                    example: false
+                  category_id:
+                    type: integer
   /t/{id}/change-timestamp:
     put:
       description: |
         Update a topics timestamp
       tags:
         - Topics
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              timestamp:
-                type: integer
-                example: 1491199200
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                timestamp:
+                  type: integer
+                  example: 1491199200
       responses:
         200:
           description: |
             update timestamp response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /t/{id}/notifications:
     post:
       description: |
         set notification level
       tags:
         - Topics
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              notification_level:
-                type: integer
-                example: 0
-                enum:
-                  - 0
-                  - 1
-                  - 2
-                  - 3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notification_level:
+                  type: integer
+                  example: 0
+                  enum:
+                    - 0
+                    - 1
+                    - 2
+                    - 3
       responses:
         200:
           description: |
             set notification level response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /user_badges/{id}:
     delete:
       description: |
@@ -12991,12 +13019,14 @@ paths:
         200:
           description: |
             revoke a badge response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /user_actions.json:
     get:
       description: |
@@ -13017,146 +13047,150 @@ paths:
         200:
           description: |
             list of user actions response
-          schema:
-            type: object
-            properties:
-              user_actions:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    acting_avatar_template:
-                      type: string
-                    acting_name:
-                      type: string
-                    acting_user_id:
-                      type: integer
-                    acting_username:
-                      type: string
-                    action_code:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_actions:
+                    type: array
+                    items:
                       type: object
-                    action_type:
-                      type: integer
-                    archived:
-                      type: boolean
-                    avatar_template:
-                      type: string
-                    category_id:
-                      type: integer
-                    closed:
-                      type: boolean
-                    created_at:
-                      type: string
-                    delete:
-                      type: boolean
-                    exerpt:
-                      type: string
-                    hidden:
-                      type: boolean
-                    name:
-                      type: string
-                    post_id:
-                      type: integer
-                    slug:
-                      type: string
-                    target_name:
-                      type: string
-                    target_user_id:
-                      type: string
-                    target_username:
-                      type: string
-                    title:
-                      type: string
-                    topic_id:
-                      type: integer
-                    user_id:
-                      type: integer
-                    username:
-                      type: string
+                      properties:
+                        acting_avatar_template:
+                          type: string
+                        acting_name:
+                          type: string
+                        acting_user_id:
+                          type: integer
+                        acting_username:
+                          type: string
+                        action_code:
+                          type: object
+                        action_type:
+                          type: integer
+                        archived:
+                          type: boolean
+                        avatar_template:
+                          type: string
+                        category_id:
+                          type: integer
+                        closed:
+                          type: boolean
+                        created_at:
+                          type: string
+                        delete:
+                          type: boolean
+                        exerpt:
+                          type: string
+                        hidden:
+                          type: boolean
+                        name:
+                          type: string
+                        post_id:
+                          type: integer
+                        slug:
+                          type: string
+                        target_name:
+                          type: string
+                        target_user_id:
+                          type: string
+                        target_username:
+                          type: string
+                        title:
+                          type: string
+                        topic_id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        username:
+                          type: string
   /admin/api/web_hooks:
     post:
       description: |
         create a web hook
       tags:
         - Web Hooks
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              payload_url:
-                type: string
-              content_type:
-                type: integer
-              secret:
-                type: string
-              wildcard_web_hook:
-                type: boolean
-              verify_certificate:
-                type: boolean
-              active:
-                type: boolean
-              web_hook_event_type_ids:
-                type: array
-              category_ids:
-                type: array
-              group_ids:
-                type: array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload_url:
+                  type: string
+                content_type:
+                  type: integer
+                secret:
+                  type: string
+                wildcard_web_hook:
+                  type: boolean
+                verify_certificate:
+                  type: boolean
+                active:
+                  type: boolean
+                web_hook_event_type_ids:
+                  type: array
+                category_ids:
+                  type: array
+                group_ids:
+                  type: array
       responses:
         200:
           description: |
             create a web hook response
-          schema:
-            type: object
-            properties:
-              web_hook:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  active:
-                    type: boolean
-                  category_ids:
-                    type: array
-                  content_type:
-                    type: integer
-                  group_ids:
-                    type: array
-                  id:
-                    type: integer
-                  last_delivery_status:
-                    type: integer
-                  payload_url:
-                    type: string
-                  secret:
-                    type: string
-                  verify_certificate:
-                    type: string
-                  web_hook_event_types:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
-                  wildcard_web_hook:
-                    type: boolean
+                  web_hook:
+                    type: object
+                    properties:
+                      active:
+                        type: boolean
+                      category_ids:
+                        type: array
+                      content_type:
+                        type: integer
+                      group_ids:
+                        type: array
+                      id:
+                        type: integer
+                      last_delivery_status:
+                        type: integer
+                      payload_url:
+                        type: string
+                      secret:
+                        type: string
+                      verify_certificate:
+                        type: string
+                      web_hook_event_types:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                      wildcard_web_hook:
+                        type: boolean
   /admin/backups/readonly:
     put:
       description: |
         update readonly mode
       tags:
         - Backups
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              enable:
-                type: boolean
-                example: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enable:
+                  type: boolean
+                  example: false
       responses:
         200:
           description: empty response body
@@ -13177,59 +13211,61 @@ paths:
         200:
           description: |
             staff action logs response
-          schema:
-            type: object
-            properties:
-              user_history_actions:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-              staff_action_logs:
-                type: object
-                properties:
-                  action_name:
-                    type: string
-                  details:
-                    type: string
-                  context:
-                    type: string
-                  ip_address:
-                    type: string
-                  email:
-                    type: string
-                  created_at:
-                    type: string
-                  subject:
-                    type: string
-                  previous_value:
-                    type: string
-                  new_value:
-                    type: string
-                  topic_id:
-                    type: integer
-                  post_id:
-                    type: integer
-                  category_id:
-                    type: integer
-                  action:
-                    type: integer
-                  custom_type:
-                    type: string
-                  id:
-                    type: integer
-                  acting_user:
+                  user_history_actions:
                     type: object
                     properties:
                       id:
                         type: integer
-                      username:
+                      name:
                         type: string
-                      avatar_template:
+                  staff_action_logs:
+                    type: object
+                    properties:
+                      action_name:
                         type: string
-                  target_user:
+                      details:
+                        type: string
+                      context:
+                        type: string
+                      ip_address:
+                        type: string
+                      email:
+                        type: string
+                      created_at:
+                        type: string
+                      subject:
+                        type: string
+                      previous_value:
+                        type: string
+                      new_value:
+                        type: string
+                      topic_id:
+                        type: integer
+                      post_id:
+                        type: integer
+                      category_id:
+                        type: integer
+                      action:
+                        type: integer
+                      custom_type:
+                        type: string
+                      id:
+                        type: integer
+                      acting_user:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          username:
+                            type: string
+                          avatar_template:
+                            type: string
+                      target_user:
   /about.json:
     get:
       description: |
@@ -13240,106 +13276,110 @@ paths:
         200:
           description: |
             about page data response
-          schema:
-            type: object
-            properties:
-              about:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  stats:
+                  about:
                     type: object
-                  description:
-                    type: string
-                  title:
-                    type: string
-                  locale:
-                    type: string
-                  version:
-                    type: string
-                  https:
-                    type: boolean
-                  moderators:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        username:
-                          type: string
-                        avatar_template:
-                          type: string
-                        name:
-                          type: string
-                        title:
-                          type: string
-                  admins:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        username:
-                          type: string
-                        avatar_template:
-                          type: string
-                        name:
-                          type: string
-                        title:
-                          type: string
+                    properties:
+                      stats:
+                        type: object
+                      description:
+                        type: string
+                      title:
+                        type: string
+                      locale:
+                        type: string
+                      version:
+                        type: string
+                      https:
+                        type: boolean
+                      moderators:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            username:
+                              type: string
+                            avatar_template:
+                              type: string
+                            name:
+                              type: string
+                            title:
+                              type: string
+                      admins:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            username:
+                              type: string
+                            avatar_template:
+                              type: string
+                            name:
+                              type: string
+                            title:
+                              type: string
   /polls/vote:
     put:
       description: |
         vote on a poll
       tags:
         - Poll Plugin
-      parameters:
-        - name: body
-          in: body
-          schema:
-            type: object
-            properties:
-              post_id:
-                type: integer
-              poll_name:
-                type: string
-              options[]:
-                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post_id:
+                  type: integer
+                poll_name:
+                  type: string
+                options[]:
+                  type: string
       responses:
         200:
           description: |
             vote on a poll response
-          schema:
-            type: object
-            properties:
-              poll:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  options:
+                  poll:
                     type: object
                     properties:
-                      id:
-                        type: string
-                      html:
-                        type: string
-                      votes:
+                      options:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          html:
+                            type: string
+                          votes:
+                            type: integer
+                      voters:
                         type: integer
-                  voters:
-                    type: integer
-                  status:
-                    type: string
-                    example: open
-                  name:
-                    type: string
-                    example: poll
-                  type:
-                    type: string
-                    example: regular
-              vote:
-                type: array
-                items:
-                  type: string
+                      status:
+                        type: string
+                        example: open
+                      name:
+                        type: string
+                        example: poll
+                      type:
+                        type: string
+                        example: regular
+                  vote:
+                    type: array
+                    items:
+                      type: string
   /admin/users/{id}/log_out:
     post:
       description: |
@@ -13349,16 +13389,19 @@ paths:
       parameters:
         - name: id
           in: path
+          required: true
       responses:
         200:
           description: |
             log a user out response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /page_view_total_reqs:
     get:
       description: |
@@ -13382,83 +13425,86 @@ paths:
         200:
           description: |
             pageviews response
-          schema:
-            type: object
-            properties:
-              report:
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  type:
-                    type: string
-                  title:
-                    type: string
-                  xaxis:
-                    type: string
-                  yaxis:
-                    type: string
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        x:
-                          type: string
-                        y:
-                          type: integer
-                  total:
-                    type: integer
-                  start_date:
-                    type: string
-                  end_date:
-                    type: string
-                  category_id:
-                    type: integer
-                  group_id:
-                    type: integer
-                  prev30Days:
-                    type: integer
+                  report:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      title:
+                        type: string
+                      xaxis:
+                        type: string
+                      yaxis:
+                        type: string
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            x:
+                              type: string
+                            y:
+                              type: integer
+                      total:
+                        type: integer
+                      start_date:
+                        type: string
+                      end_date:
+                        type: string
+                      category_id:
+                        type: integer
+                      group_id:
+                        type: integer
+                      prev30Days:
+                        type: integer
   /export_csv/export_entity.json:
     post:
       description: |
         Start export of a report
       tags:
         - Reports
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            required:
-              - entity
-              - args[name]
-              - args[start_date]
-              - args[end_date]
-            properties:
-              entity:
-                type: string
-                example: report
-              args[name]:
-                type: string
-                example: page_view_total_reqs
-              args[start_date]:
-                type: string
-                example: YYYY-mm-dd
-              args[end_date]:
-                type: string
-                example: YYYY-mm-dd
-              args[group_id]:
-                type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - entity
+                - args[name]
+                - args[start_date]
+                - args[end_date]
+              properties:
+                entity:
+                  type: string
+                  example: report
+                args[name]:
+                  type: string
+                  example: page_view_total_reqs
+                args[start_date]:
+                  type: string
+                  example: YYYY-mm-dd
+                args[end_date]:
+                  type: string
+                  example: YYYY-mm-dd
+                args[group_id]:
+                  type: integer
       responses:
         200:
           description: |
             Export report response
-          schema:
-            type: object
-            properties:
-              success:
-                type: string
-                example: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: OK
   /user_avatar/{username}/refresh_gravatar.json:
     post:
       description: |
@@ -13468,16 +13514,19 @@ paths:
       parameters:
         - name: username
           in: path
-          type: string
           required: true
+          schema:
+            type: string
       responses:
         200:
           description: |
             Refresh a users gravatar response
-          schema:
-            type: object
-            properties:
-              gravatar_upload_id:
-                type: integer
-              gravatar_avatar_template:
-                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gravatar_upload_id:
+                    type: integer
+                  gravatar_avatar_template:
+                    type: string
